@@ -26,6 +26,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 
 
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 builder.Services.AddCors();
 builder.Services.AddIdentityCore<User>(opt =>
