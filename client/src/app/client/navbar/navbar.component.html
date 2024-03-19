@@ -1,30 +1,37 @@
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" routerLink="/" routerLinkActive="active">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
             aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <ul class="navbar-nav me-auto">
+        <ul class="navbar-nav me-auto" *ngIf="currentUser$|async">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Home
-                    <span class="visually-hidden">(current)</span>
-                </a>
+                <a class="nav-link" routerLink="/admin/categories/index" routerLinkActive="active">Categorías</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" routerLink="/admin/products/index" routerLinkActive="active">Productos</a>
             </li>
         </ul>
-        <div class="d-flex">
-            <input class="form-control me-sm-2" type="email" placeholder="Email">
-            <input class="form-control me-sm-2" type="password" placeholder="Password">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Access</button>
+
+        <div class="dropdown" *ngIf="currentUser$|async" dropdown>
+            <a class="dropdown-toggle text-decoration-none text-light" dropdownToggle>Welcome User</a>
+            <div class="dropdown-menu mt-3" *dropdownMenu>
+                <a class="dropdown-item">Edit Profile</a>
+                <a class="dropdown-item" (click)="goToDashboard()">Dashboard</a>
+                <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
+        </div>
+
+        <div class="d-flex" *ngIf="!(currentUser$|async)">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/" routerLinkActive="active">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
